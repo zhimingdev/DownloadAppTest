@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         String[] names = {"Hi","Hello","Mack"};
+        //Rxjava 测试
         Observable.from(names)
                 .subscribe(new Action1<String>() {
                     @Override
