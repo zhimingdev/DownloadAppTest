@@ -8,8 +8,8 @@ import android.webkit.WebViewClient;
 public class MainActivity extends AppCompatActivity {
 
     private WebView mWebView;
-    String url = "http://www.baidu.com";
-//    String url = "file:///android_asset/index.html";
+//    String url = "http://www.baidu.com";
+    String url = "file:///android_asset/link.html";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,5 +24,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mWebView.loadUrl(url);
+//        mWebView.loadData(url, "text/html; charset=UTF-8", null);
     }
 }

@@ -2,12 +2,12 @@ package com.test.recyclerviewtext;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 
-import com.alibaba.fastjson.JSON;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         mList.add(new TradeDetailData("2018-06",mDetailData));
         mList.add(new TradeDetailData("2018-07",mDetailData));
         mList.add(new TradeDetailData("2018-08",mDetailData));
+        mList.add(new TradeDetailData("2018-08",mDetailData));
 
         for (int i = 0;i<mList.size();i++) {
             keys.put(list.size(),mList.get(i).data);
@@ -48,15 +49,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        System.out.println("数据大小"+ JSON.toJSONString(mList));
-        TradeDetailData tradeDetailData = mList.get(0);
-        int size = tradeDetailData.mList.size();
-        DetailData detailData = tradeDetailData.mList.get(0);
-        String person = detailData.age+detailData.name+detailData.sex;
-        System.out.println("size:"+size+",time"+tradeDetailData.data+",perseon"+person);
+//        System.out.println("数据大小"+ JSON.toJSONString(mList));
+//        TradeDetailData tradeDetailData = mList.get(0);
+//        int size = tradeDetailData.mList.size();
+//        DetailData detailData = tradeDetailData.mList.get(0);
+//        String person = detailData.age+detailData.name+detailData.sex;
+//        System.out.println("size:"+size+",time"+tradeDetailData.data+",perseon"+person);
 
 
-        MyAdapter adapter = new MyAdapter();
+        final MyAdapter adapter = new MyAdapter();
         final FloatingItemDecoration floatingItemDecoration=new FloatingItemDecoration(this, Color.BLUE,1,1);
         floatingItemDecoration.setKeys(keys);
         floatingItemDecoration.setmTitleHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,50,getResources().getDisplayMetrics()));
@@ -71,6 +72,13 @@ public class MainActivity extends AppCompatActivity {
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.addData(list);
+                        adapter.loadMoreComplete();
+                    }
+                },2000);
 
             }
         });
